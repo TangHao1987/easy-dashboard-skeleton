@@ -8,8 +8,8 @@
         module('app', ['app.config']).
         factory('AuthenticationService', AuthenticationService);
 
-    AuthenticationService.$inject = ['$http', '$cookieStore', '$rootScope', '$timeout', 'UserService', 'LocalConfig'];
-    function AuthenticationService($http, $cookieStore, $rootScope, $timeout, UserService, LocalConfig){
+    AuthenticationService.$inject = ['$http', '$cookieStore', '$rootScope', 'LocalConfig'];
+    function AuthenticationService($http, $cookieStore, $rootScope, LocalConfig){
         var service = {};
         service.Login = Login;
         service.SetCredentials = SetCredentials;
