@@ -1,6 +1,3 @@
-/**
- * Created by tang.hao on 24/6/2015.
- */
 (function(){
     'use strict';
 
@@ -8,8 +5,8 @@
         module('app', ['app.config']).
         factory('AuthenticationService', AuthenticationService);
 
-    AuthenticationService.$inject = ['$http', '$cookieStore', '$rootScope', 'LocalConfig'];
-    function AuthenticationService($http, $cookieStore, $rootScope, LocalConfig){
+    AuthenticationService.$inject = ['$http', '$cookieStore', '$rootScope', 'LocalConfig', 'UserService'];
+    function AuthenticationService($http, $cookieStore, $rootScope, LocalConfig, UserService){
         var service = {};
         service.Login = Login;
         service.SetCredentials = SetCredentials;
@@ -17,15 +14,34 @@
 
         return service;
 
-        function Login(username, password, callback){
-            $http.post(LocalConfig.backend + '/api/authenticate', { username: username, password: password })
-                .success(function (response) {
-                    callback(response);
-                });
+        function Login(username, password, callback) {
+            if (!LocalConfig.debugMode) {
+                $http.post(LocalConfig.backend + '/api/authenticate', {username: username, password: password})
+                    .success(function (response) {
+                        callback(response);
+                    });
+            } else {
+                dummyLogin(username, password, callback)
+            }
+        }
+
+        function dummyLogin(username, password, callback){
+            $timeout(function () {
+                var response;
+                UserService.GetByUsername(username)
+                    .then(function (user) {
+                        if (user !== null && user.password === password) {
+                            response = {success: true};
+                        } else {
+                            response = {success: false, message: 'Username or password is incorrect'};
+                        }
+                        callback(response);
+                    });
+            }, 1000);
         }
 
         function SetCredentials(username, password) {
-            var authdata = Base64.encode(username + ':' + password);
+            var authdata =  username + ':' + password;
 
             $rootScope.globals = {
                 currentUser: {
