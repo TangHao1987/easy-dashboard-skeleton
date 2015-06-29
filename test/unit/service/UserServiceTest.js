@@ -21,6 +21,7 @@ describe('user service test', function(){
             $httpBackend = _$httpBackend_;
             $httpBackend.expectGET('/data/user.json').
                 respond(expectedUsers);
+
             service = UserService;
             scope = $rootScope;
         }));
@@ -73,12 +74,18 @@ describe('user service test', function(){
                 "email": "test1@123.com",
                 "password" : "root1"
             };
+
+            $httpBackend.expectPOST('/data/user.json?id=1', {
+                "id" : 1,
+                "email": "test1@123.com",
+                "password" : "root12"
+            }).respond(200);
             var updatedUser;
             user1.password = 'root12';
             service.CreateOrUpdate(user1).then(function(user){
                 updatedUser = user;
             });
-            scope.$apply();
+            scope.$digest();
             $httpBackend.flush();
             expect(angular.equals(updatedUser,{
                 "id" : 1,
