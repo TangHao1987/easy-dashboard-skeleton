@@ -39,44 +39,57 @@
         function GetById(id) {
             return execute(function (deferred, users) {
                 users.query(function(response){
-                    angular.forEach(response, function(item){
-                        if(item.id === id){
-                            deferred.resolve(item)
-                        }
-                    });
-                    if(!deferred.isResolved){
+                    var user = findUserByParam(response, id, 'id');
+                    if(user){
+                        deferred.resolve(user);
+                    }else{
                         deferred.reject();
                     }
                 });
             });
         }
 
+        function findUserByParam(response, param, term){
+            if(term === 'id'){
+                return _.find(response, function(item){
+                    return item.id = param;
+                });
+            }else if(term === 'email'){
+                return _.find(response, function(item){
+                    return item.email = param;
+                });
+            }
+        }
+
         function GetByEmail(email) {
             return execute(function (deferred, users) {
-                var filtered = $filter('filter')(users, { email: email});
-                if(filtered.length){
-                    deferred.resolve(filtered[0]);
-                }else{
-                    deferred.rejected('user not found');
-                }
+                users.query(function(response){
+                    var user = findUserByParam(response, email, 'email');
+                    if(user){
+                        deferred.resolve(user);
+                    }else{
+                        deferred.reject();
+                    }
+                });
             });
         }
 
         function CreateOrUpdate(user) {
             return execute(function (deferred, users) {
-                $timeout(function () {
-                    GetByEmail(user.email)
-                        .then(function (userToUpdate) {
-                            userToUpdate.password = user.password;
-                            userToUpdate.$save();
-                        }, function(){
+                    users.query(function(response){
+                        var findUser = findUserByParam(response, user.email, 'email');
+                        if(user){
+                            findUser.password = user.password;
+                            findUser.$save();
+                            deferred.resolve(findUser);
+                        }else{
                             var lastUser = _.last(users);
                             user.id = lastUser.id + 1;
                             users.push(user);
                             users.$save();
-                            deferred.resolve();
-                        });
-                }, 1000);
+                            deferred.resolve(user);
+                        }
+                    });
             });
         }
 

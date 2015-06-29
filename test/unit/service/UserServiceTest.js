@@ -38,7 +38,7 @@ describe('user service test', function(){
             expect(angular.equals(fetchedUsers,expectedUsers)).toBe(true);
         });
 
-        it('should get the expected user', function(){
+        it('should get the expected user by Id', function(){
             var fetchedUsers;
 
             service.GetById(1).then(function(users){
@@ -46,11 +46,44 @@ describe('user service test', function(){
             });
             scope.$apply();
             $httpBackend.flush();
-            console.log(fetchedUsers);
             expect(angular.equals(fetchedUsers,{
                 "id" : 1,
                 "email": "test1@123.com",
                 "password" : "root1"
+            })).toBe(true);
+        });
+
+        it('should get the expected user by Email', function(){
+            var fetchedUsers;
+            service.GetByEmail("test1@123.com").then(function(users){
+                fetchedUsers = users;
+            });
+            scope.$apply();
+            $httpBackend.flush();
+            expect(angular.equals(fetchedUsers,{
+                "id" : 1,
+                "email": "test1@123.com",
+                "password" : "root1"
+            })).toBe(true);
+        });
+
+        it('should modify the email of user id is 1', function(){
+            var user1 =  {
+                "id" : 1,
+                "email": "test1@123.com",
+                "password" : "root1"
+            };
+            var updatedUser;
+            user1.password = 'root12';
+            service.CreateOrUpdate(user1).then(function(user){
+                updatedUser = user;
+            });
+            scope.$apply();
+            $httpBackend.flush();
+            expect(angular.equals(updatedUser,{
+                "id" : 1,
+                "email": "test1@123.com",
+                "password" : "root12"
             })).toBe(true);
         });
     });
