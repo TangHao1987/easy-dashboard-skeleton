@@ -54,6 +54,17 @@ describe('user service test', function(){
             })).toBe(true);
         });
 
+        it('should be rejected as user not found', function(){
+            var errorMsg = null;
+
+            service.GetById(3).then(function(users){},function(message){
+                errorMsg = message;
+            });
+            scope.$apply();
+            $httpBackend.flush();
+            expect(errorMsg).toBe('user not found');
+        });
+
         it('should get the expected user by Email', function(){
             var fetchedUsers = null;
             service.GetByEmail("test1@123.com").then(function(users){
@@ -121,6 +132,18 @@ describe('user service test', function(){
             scope.$digest();
             $httpBackend.flush();
             expect(resp).toBe('success');
+        });
+
+        it('should be rejected the delete the user whose user id = 3', function(){
+            var msg = null;
+            service.Delete(3).then(function(response){
+
+            }, function(message){
+                msg = message;
+            });
+            scope.$digest();
+            $httpBackend.flush();
+            expect(msg).toBe('user not found');
         });
     });
 });

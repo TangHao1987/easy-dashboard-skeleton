@@ -7,11 +7,18 @@ module.exports = function (config) {
             'app/bower_components/angular-mocks/angular-mocks.js',
             'app/bower_components/angular-resource/angular-resource.js',
             'app/bower_components/underscore/underscore.js',
-            'app/components/**/*.js',
             'app/service/**/*.js',
-            'app/data/**/*.js',
             'test/unit/**/*.js'
         ],
+        // coverage reporter generates the coverage
+        reporters: ['progress', 'coverage'],
+
+        preprocessors: {
+            // source files, that you wanna generate coverage for
+            // do not include tests or libraries
+            // (these files will be instrumented by Istanbul)
+            'app/service/**/*.js': ['coverage']
+        },
 
         autoWatch: true,
 
@@ -23,6 +30,7 @@ module.exports = function (config) {
             'karma-chrome-launcher',
             'karma-firefox-launcher',
             'karma-jasmine',
+            'karma-coverage',
             'karma-junit-reporter'
         ],
 

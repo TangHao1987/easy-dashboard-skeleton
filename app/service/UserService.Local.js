@@ -43,7 +43,7 @@
                     if(user){
                         deferred.resolve(user);
                     }else{
-                        deferred.reject();
+                        deferred.reject('user not found');
                     }
                 });
             });
@@ -68,7 +68,7 @@
                     if(user){
                         deferred.resolve(user);
                     }else{
-                        deferred.reject();
+                        deferred.reject('user not found');
                     }
                 });
             });
