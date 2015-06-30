@@ -42,7 +42,7 @@ describe('user service test', function(){
         it('should get the expected user by Id', function(){
             var fetchedUsers = null;
 
-            service.GetById(1).then(function(users){
+            service.GetByParam(1, 'id').then(function(users){
                 fetchedUsers = users;
             });
             scope.$apply();
@@ -57,7 +57,7 @@ describe('user service test', function(){
         it('should be rejected as user not found', function(){
             var errorMsg = null;
 
-            service.GetById(3).then(function(users){},function(message){
+            service.GetByParam(3, 'id').then(function(users){},function(message){
                 errorMsg = message;
             });
             scope.$apply();
@@ -67,7 +67,7 @@ describe('user service test', function(){
 
         it('should get the expected user by Email', function(){
             var fetchedUsers = null;
-            service.GetByEmail("test1@123.com").then(function(users){
+            service.GetByParam("test1@123.com", 'email').then(function(users){
                 fetchedUsers = users;
             });
             scope.$apply();
@@ -77,6 +77,17 @@ describe('user service test', function(){
                 "email": "test1@123.com",
                 "password" : "root1"
             })).toBe(true);
+        });
+
+        it('should be rejected as user not found', function(){
+            var errorMsg = null;
+
+            service.GetByParam("test3@123.com", 'email').then(function(users){},function(message){
+                errorMsg = message;
+            });
+            scope.$apply();
+            $httpBackend.flush();
+            expect(errorMsg).toBe('user not found');
         });
 
         it('should modify the email of user id is 1', function(){

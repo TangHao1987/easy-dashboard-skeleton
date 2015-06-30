@@ -14,8 +14,7 @@
         var service = {};
 
         service.GetAll = GetAll;
-        service.GetById = GetById;
-        service.GetByEmail = GetByEmail;
+        service.GetByParam = GetByParam;
         service.CreateOrUpdate = CreateOrUpdate;
         service.Delete = Delete;
 
@@ -36,10 +35,10 @@
             });
         }
 
-        function GetById(id) {
+        function GetByParam(param, name) {
             return execute(function (deferred, users) {
                 users.query(function(response){
-                    var user = findUserByParam(response, id, 'id');
+                    var user = findUserByParam(response, param, name);
                     if(user){
                         deferred.resolve(user);
                     }else{
@@ -59,19 +58,6 @@
                     return item.email === param;
                 });
             }
-        }
-
-        function GetByEmail(email) {
-            return execute(function (deferred, users) {
-                users.query(function(response){
-                    var user = findUserByParam(response, email, 'email');
-                    if(user){
-                        deferred.resolve(user);
-                    }else{
-                        deferred.reject('user not found');
-                    }
-                });
-            });
         }
 
         function CreateOrUpdate(user) {
@@ -108,8 +94,6 @@
                 });
             });
         }
-
-        // private functions
 
         function getUsers(){
             return $resource('/data/user.json', {id: '@id'}, {
