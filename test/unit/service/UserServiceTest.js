@@ -93,6 +93,25 @@ describe('user service test', function(){
             })).toBe(true);
         });
 
+        it('should create new user of user id is 3', function(){
+            var user =  {
+                "email": "test3@123.com",
+                "password" : "root3"
+            };
+            $httpBackend.expectPOST('/data/user.json?id=3').respond(200);
+            var updatedUser = null;
+            service.CreateOrUpdate(user).then(function(user){
+                updatedUser = user;
+            });
+            scope.$digest();
+            $httpBackend.flush();
+            expect(angular.equals(updatedUser,{
+                "id" : 3,
+                "email": "test3@123.com",
+                "password" : "root3"
+            })).toBe(true);
+        });
+
         it('should delete the user whose user id = 1', function(){
             $httpBackend.expectDELETE('/data/user.json?id=1').respond(200);
             var resp = null;
