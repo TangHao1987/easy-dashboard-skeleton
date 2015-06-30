@@ -8,8 +8,8 @@
         .module('app.Service', ['ngResource'])
         .factory('UserService', UserService);
 
-    UserService.$inject = ['$timeout', '$filter', '$q', '$resource'];
-    function UserService($timeout, $filter, $q, $resource) {
+    UserService.$inject = ['$q', '$resource'];
+    function UserService($q, $resource) {
 
         var service = {};
 

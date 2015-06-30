@@ -27,7 +27,7 @@ describe('user service test', function(){
         }));
 
         it('should return all the defined users when query all user', function(){
-            var fetchedUsers;
+            var fetchedUsers = null;
 
             service.GetAll().then(function(users){
                     fetchedUsers = users;
@@ -40,7 +40,7 @@ describe('user service test', function(){
         });
 
         it('should get the expected user by Id', function(){
-            var fetchedUsers;
+            var fetchedUsers = null;
 
             service.GetById(1).then(function(users){
                 fetchedUsers = users;
@@ -55,7 +55,7 @@ describe('user service test', function(){
         });
 
         it('should get the expected user by Email', function(){
-            var fetchedUsers;
+            var fetchedUsers = null;
             service.GetByEmail("test1@123.com").then(function(users){
                 fetchedUsers = users;
             });
@@ -79,7 +79,7 @@ describe('user service test', function(){
                 "email": "test1@123.com",
                 "password" : "root12"
             }).respond(200);
-            var updatedUser;
+            var updatedUser = null;
             user1.password = 'root12';
             service.CreateOrUpdate(user1).then(function(user){
                 updatedUser = user;
@@ -94,13 +94,8 @@ describe('user service test', function(){
         });
 
         it('should delete the user whose user id = 1', function(){
-            var user1 =  {
-                "id" : 1,
-                "email": "test1@123.com",
-                "password" : "root1"
-            };
             $httpBackend.expectDELETE('/data/user.json?id=1').respond(200);
-            var resp;
+            var resp = null;
             service.Delete(1).then(function(response){
                 resp = response;
             });
