@@ -83,10 +83,10 @@
                             findUser.$save();
                             deferred.resolve(findUser);
                         }else{
-                            var lastUser = _.last(users);
+                            var lastUser = _.last(response);
                             user.id = lastUser.id + 1;
-                            users.push(user);
-                            users.$save();
+                            response.push(user);
+                            response.$save();
                             deferred.resolve(user);
                         }
                     });
@@ -95,14 +95,15 @@
 
         function Delete(id) {
             return execute(function (deferred, users) {
-                var filtered = $filter('filter')(users, { id: id});
-                if(filtered == null){
-                    deferred.reject('user not found')
-                }else{
-                    users = _.without(users, filtered[0]);
-                    users.$save();
-                    deferred.resolve();
-                }
+                users.query(function (response) {
+                    var user = findUserByParam(response, id, 'id');
+                    if (user == null) {
+                        deferred.reject('user not found')
+                    } else {
+                        user.$delete();
+                        deferred.resolve('success');
+                    }
+                });
             });
         }
 

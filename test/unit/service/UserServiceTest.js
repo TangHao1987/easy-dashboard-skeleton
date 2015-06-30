@@ -74,7 +74,6 @@ describe('user service test', function(){
                 "email": "test1@123.com",
                 "password" : "root1"
             };
-
             $httpBackend.expectPOST('/data/user.json?id=1', {
                 "id" : 1,
                 "email": "test1@123.com",
@@ -92,6 +91,22 @@ describe('user service test', function(){
                 "email": "test1@123.com",
                 "password" : "root12"
             })).toBe(true);
+        });
+
+        it('should delete the user whose user id = 1', function(){
+            var user1 =  {
+                "id" : 1,
+                "email": "test1@123.com",
+                "password" : "root1"
+            };
+            $httpBackend.expectDELETE('/data/user.json?id=1').respond(200);
+            var resp;
+            service.Delete(1).then(function(response){
+                resp = response;
+            });
+            scope.$digest();
+            $httpBackend.flush();
+            expect(resp).toBe('success');
         });
     });
 });
