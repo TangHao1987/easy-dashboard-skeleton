@@ -6,7 +6,9 @@ module.exports = function (config) {
             'app/bower_components/angular-route/angular-route.js',
             'app/bower_components/angular-mocks/angular-mocks.js',
             'app/bower_components/angular-resource/angular-resource.js',
+            'app/bower_components/angular-cookies/angular-cookies.js',
             'app/bower_components/underscore/underscore.js',
+            'app/config/*.js',
             'app/service/**/*.js',
             'test/unit/**/*.js'
         ],
@@ -17,7 +19,7 @@ module.exports = function (config) {
             // source files, that you wanna generate coverage for
             // do not include tests or libraries
             // (these files will be instrumented by Istanbul)
-            'app/service/**/UserService.Local.js': ['coverage']
+            'app/service/**/*.js': ['coverage']
         },
 
         autoWatch: true,

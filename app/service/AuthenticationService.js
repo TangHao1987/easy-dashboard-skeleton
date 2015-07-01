@@ -2,11 +2,11 @@
     'use strict';
 
     angular.
-        module('app', ['app.config']).
+        module('app', ['app.config', 'ngCookies', 'app.Service']).
         factory('AuthenticationService', AuthenticationService);
 
-    AuthenticationService.$inject = ['$http', '$cookieStore', '$rootScope', 'LocalConfig', 'UserService'];
-    function AuthenticationService($http, $cookieStore, $rootScope, LocalConfig, UserService){
+    AuthenticationService.$inject = ['$http', '$cookies', '$rootScope', 'LocalConfig', 'UserService', '$timeout'];
+    function AuthenticationService($http, $cookies, $rootScope, LocalConfig, UserService, $timeout){
         var service = {};
         service.Login = Login;
         service.SetCredentials = SetCredentials;
@@ -14,21 +14,21 @@
 
         return service;
 
-        function Login(username, password, callback) {
-            if (!LocalConfig.debugMode) {
-                $http.post(LocalConfig.backend + '/api/authenticate', {username: username, password: password})
-                    .success(function (response) {
-                        callback(response);
-                    });
-            } else {
-                dummyLogin(username, password, callback)
-            }
+        function Login(email, password, callback) {
+            //if (!LocalConfig.debugMode) {
+            //    $http.post(LocalConfig.backend + '/api/authenticate', {username: email, password: password})
+            //        .success(function (response) {
+            //            callback(response);
+            //        });
+            //} else {
+                dummyLogin(email, password, callback);
+            //}
         }
 
-        function dummyLogin(username, password, callback){
+        function dummyLogin(email, password, callback){
             $timeout(function () {
                 var response;
-                UserService.GetByUsername(username)
+                UserService.GetByParam(email, 'email')
                     .then(function (user) {
                         if (user !== null && user.password === password) {
                             response = {success: true};
@@ -51,12 +51,12 @@
             };
 
             $http.defaults.headers.common['Authorization'] = 'Basic ' + authdata; // jshint ignore:line
-            $cookieStore.put('globals', $rootScope.globals);
+            $cookies.putObject('globals', $rootScope.globals);
         }
 
         function ClearCredentials() {
             $rootScope.globals = {};
-            $cookieStore.remove('globals');
+            $cookies.remove('globals');
             $http.defaults.headers.common.Authorization = 'Basic ';
         }
 
