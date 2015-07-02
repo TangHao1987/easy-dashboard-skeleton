@@ -4,19 +4,12 @@
 // Declare app level module which depends on views, and components
     angular.module('app', [
         'ngRoute',
-        'app.home',
+        //'app.home',
         'ngCookies',
-        'app.login',
+        //'app.login',
+        'app.routes',
         'app.config'
-    ]).config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
-        $routeProvider.when('/home', {
-            templateUrl: 'public/partials/home/home.view.html',
-            controller: 'HomeCtrl'
-        }).when('/login', {
-            templateUrl: 'public/partials/login/login.view.html',
-            controller: 'LoginCtrl'
-        }).otherwise({redirectTo: '/home'});
-    }]).run(run);
+    ]).run(run);
 
     run.$inject = ['$rootScope', '$location', '$cookies', '$http', 'LocalConfig'];
     function run($rootScope, $location, $cookies, $http, LocalConfig) {

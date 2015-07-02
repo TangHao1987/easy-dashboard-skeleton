@@ -3,12 +3,20 @@
  */
 (function () {
     'use strict';
+    var imageBaseDir = 'public/img/';
     angular.module('app.config', [])
         .constant('LocalConfig', {
             'debugMode': true,
             'backend': 'http://localhost:3000/api',
             'version': 0.1,
             'controlPages': [
-            ]
+            ],
+            'images':{
+                bg: imageBaseDir + 'bg.jpg',
+                intro_pic: imageBaseDir + 'intro-pic.jpg',
+                slide1: imageBaseDir + 'slide-1.jpg',
+                slide2: imageBaseDir + 'slide-2.jpg',
+                slide3: imageBaseDir + 'slide-3.jpg'
+            }
         });
 })();
