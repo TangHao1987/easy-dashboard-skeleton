@@ -5,28 +5,30 @@
     angular.module('app', [
         'ngRoute',
         'app.home',
-        'app.login'
+        'ngCookies',
+        'app.login',
+        'app.config'
     ]).config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
-        $locationProvider.html5Mode(true).hashPrefix();
         $routeProvider.when('/home', {
-            templateUrl: 'app/home/home.view.html',
+            templateUrl: 'public/partials/home/home.view.html',
             controller: 'HomeCtrl'
         }).when('/login', {
-            templateUrl: 'app/login/login.view.html',
+            templateUrl: 'public/partials/login/login.view.html',
             controller: 'LoginCtrl'
         }).otherwise({redirectTo: '/home'});
     }]).run(run);
 
-    run.$inject = ['$rootScope', '$location', '$cookieStore', '$http'];
-    function run($rootScope, $location, $cookieStore, $http) {
+    run.$inject = ['$rootScope', '$location', '$cookies', '$http', 'LocalConfig'];
+    function run($rootScope, $location, $cookies, $http, LocalConfig) {
         // keep user logged in after page refresh
-        $rootScope.globals = $cookieStore.get('globals') || {};
+        $rootScope.globals = $cookies.get('globals') || {};
         if ($rootScope.globals.currentUser) {
             $http.defaults.headers.common['Authorization'] = 'Basic ' + $rootScope.globals.currentUser.authdata; // jshint ignore:line
         }
 
         $rootScope.$on('$locationChangeStart', function (event, next, current) {
-            var restrictedPage = $.inArray($location.path(), ['/login', '/register']) === -1;
+            console.log($location.path());
+            var restrictedPage = $.inArray($location.path(), LocalConfig.controlPages) !== -1;
             var loggedIn = $rootScope.globals.currentUser;
             if (restrictedPage && !loggedIn) {
                 $location.path('/login');

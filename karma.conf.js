@@ -2,14 +2,14 @@ module.exports = function (config) {
     config.set({
         basePath: './',
         files: [
-            'app/bower_components/angular/angular.js',
-            'app/bower_components/angular-route/angular-route.js',
-            'app/bower_components/angular-mocks/angular-mocks.js',
-            'app/bower_components/angular-resource/angular-resource.js',
-            'app/bower_components/angular-cookies/angular-cookies.js',
-            'app/bower_components/underscore/underscore.js',
-            'app/config/*.js',
-            'app/service/**/*.js',
+            'public/lib/bower_components/angular/angular.js',
+            'public/lib/bower_components/angular-route/angular-route.js',
+            'public/lib/bower_components/angular-mocks/angular-mocks.js',
+            'public/lib/bower_components/angular-resource/angular-resource.js',
+            'public/lib/bower_components/angular-cookies/angular-cookies.js',
+            'public/lib/bower_components/underscore/underscore.js',
+            'public/js/*.js',
+            'public/js/service/**/*.js',
             'test/unit/**/*.js'
         ],
         // coverage reporter generates the coverage

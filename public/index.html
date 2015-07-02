@@ -1,0 +1,31 @@
+<!doctype html>
+<html ng-app="app">
+<head>
+    <meta charset="utf-8">
+    <title>Currency Street</title>
+    <link rel="stylesheet" href="lib/bower_components/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="css/currency-street.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <script src="lib/bower_components/angular/angular.js"></script>
+    <script src="lib/bower_components/jquery/dist/jquery.js"></script>
+    <script src="lib/bower_components/angular-animate/angular-animate.js"></script>
+    <script src="lib/bower_components/angular-route/angular-route.js"></script>
+    <script src="lib/bower_components/angular-resource/angular-resource.js"></script>
+    <script src="lib/bower_components/angular-cookies/angular-cookies.js"></script>
+    <script src="js/config.js"></script>
+    <script src="../public/js/app.js"></script>
+    <script src="partials/home/home.controller.js"></script>
+    <script src="partials/login/login.controller.js"></script>
+    <!-- Fonts -->
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Josefin+Slab:100,300,400,600,700,100italic,300italic,400italic,600italic,700italic" rel="stylesheet" type="text/css">
+
+    <base href="/currencyStreet/"/>
+</head>
+<body>
+<div class="view-container">
+    <div ng-view class="view-frame"></div>
+</div>
+</body>
+</html>
+

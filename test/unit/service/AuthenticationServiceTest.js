@@ -36,7 +36,6 @@ describe('authentication service test', function() {
                 scope.$apply();
                 $httpBackend.flush();
 
-
                 expect(success).toBe(true);
             });
 

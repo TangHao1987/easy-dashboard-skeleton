@@ -7,6 +7,8 @@
         .constant('LocalConfig', {
             'debugMode': true,
             'backend': 'http://localhost:3000/api',
-            'version': 0.1
+            'version': 0.1,
+            'controlPages': [
+            ]
         });
 })();
