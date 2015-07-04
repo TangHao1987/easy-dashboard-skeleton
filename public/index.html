@@ -8,13 +8,14 @@
     <link rel="stylesheet" href="css/animations.css">
     <script src="lib/bower_components/angular/angular.js"></script>
     <script src="lib/bower_components/jquery/dist/jquery.js"></script>
+    <script src="lib/bower_components/bootstrap/dist/js/bootstrap.js"></script>
     <script src="lib/bower_components/angular-animate/angular-animate.js"></script>
     <script src="lib/bower_components/angular-route/angular-route.js"></script>
     <script src="lib/bower_components/angular-resource/angular-resource.js"></script>
     <script src="lib/bower_components/angular-cookies/angular-cookies.js"></script>
     <script src="js/config.js"></script>
-    <script src="../public/js/app.js"></script>
-    <script src="../public/js/app.routes.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/app.routes.js"></script>
     <script src="partials/home/home.controller.js"></script>
     <script src="partials/login/login.controller.js"></script>
     <!-- Fonts -->
@@ -25,26 +26,28 @@
 <body>
 
 
-<div class="brand">Currency Street</div>
-<div class="address-bar">A real money market</div>
 
-<!-- Navigation -->
+<div class="tool-bar navbar-fixed-top collapse">
+    <div class="container">
+
+    </div>
+</div>
+
 <nav class="navbar navbar-default" role="navigation">
     <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#nav_collapse">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <!-- navbar-brand is hidden on larger screens, but visible when the menu is collapsed -->
-            <a class="navbar-brand" href="#/home">Business Casual</a>
+            <a class="navbar-brand" href="#/home">Currency Street</a>
         </div>
-        <!-- Collect the nav links, forms, and other c ontent for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
+        <div class="collapse navbar-collapse" id="nav_collapse">
+
+            <ul class="nav navbar-nav pull-left">
                 <li>
                     <a href="#/home">Home</a>
                 </li>
@@ -58,12 +61,32 @@
                     <a href="#/contact">Contact</a>
                 </li>
             </ul>
+
+
+            <ul class="nav navbar-nav pull-right collapse">
+                <li>
+                    <div class="dropdown">
+                        <button class="btn btn-link dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="glyphicon glyphicon-user icon-big"></span>
+                        </button>
+                        <ul class="dropdown-menu pull-right" aria-labelledby="dropdownMenu2">
+                            <li><a href="#">Action</a></li>
+                            <li><a href="#">Another action</a></li>
+                            <li><a href="#">Something else here</a></li>
+                            <li><a href="#">Separated link</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+
         </div>
         <!-- /.navbar-collapse -->
     </div>
     <!-- /.container -->
 </nav>
 
+<div class="brand">Currency Street</div>
+<div class="address-bar">A real money market</div>
 
 <div class="view-container">
     <div ng-view class="view-frame"></div>

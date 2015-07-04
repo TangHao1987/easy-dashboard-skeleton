@@ -14,5 +14,7 @@ angular.module('app.routes', ['ngRoute']).config(['$routeProvider', function ($r
         templateUrl: 'public/blog.html'
     }).when('/contact', {
         templateUrl: 'public/contact.html'
-    }).otherwise({redirectTo: '/home'});
+    }).otherwise(
+        {redirectTo: '/home'}
+    );
 }]);
