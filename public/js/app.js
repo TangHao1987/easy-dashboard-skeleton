@@ -6,6 +6,7 @@
         'ngRoute',
         'ngCookies',
         'app.routes',
+        'app.directive',
         'app.config'
     ]).run(run);
 

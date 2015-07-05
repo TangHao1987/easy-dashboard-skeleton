@@ -195,7 +195,7 @@ footer p {
 
 }
 
-@media screen and (min-width:1200px) {
+@media screen and (min-width:1000px) {
     .box:after {
         content: '';
         display: table;
@@ -206,4 +206,10 @@ footer p {
 .icon-big{
     font-size: 1.8em;
 }
+
+/*Id selectors*/
+#nav_menu{
+    float:left;
+}
+
 

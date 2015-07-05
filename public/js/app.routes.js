@@ -8,6 +8,9 @@ angular.module('app.routes', ['ngRoute']).config(['$routeProvider', function ($r
     }).when('/login', {
         templateUrl: 'public/partials/login/login.view.html',
         controller: 'LoginCtrl'
+    }).when('/register', {
+        templateUrl: 'public/partials/register/register.view.html',
+        controller: 'RegisterCtrl'
     }).when('/about', {
         templateUrl: 'public/about.html'
     }).when('/blog', {
