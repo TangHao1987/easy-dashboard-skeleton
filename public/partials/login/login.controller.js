@@ -1,6 +1,6 @@
 (function() {
     'use strict';
-    angular.module('app').controller('LoginCtrl', [function(){
+    angular.module('app').controller("LoginCtrl", [function(){
 
     }]);
 })();

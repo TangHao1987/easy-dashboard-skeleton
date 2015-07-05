@@ -8,7 +8,9 @@
         'app.routes',
         'app.directive',
         'app.config'
-    ]).run(run);
+    ]).controller('defaultCtrl', ['$scope', '$location', function($scope, $location){
+        $scope.location = $location;
+    }]).run(run);
 
     run.$inject = ['$rootScope', '$location', '$cookies', '$http', 'LocalConfig'];
     function run($rootScope, $location, $cookies, $http, LocalConfig) {
@@ -25,5 +27,6 @@
                 $location.path('/login');
             }
         });
+
     }
 })();

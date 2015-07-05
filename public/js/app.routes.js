@@ -7,10 +7,10 @@ angular.module('app.routes', ['ngRoute']).config(['$routeProvider', function ($r
         controller: 'HomeCtrl'
     }).when('/login', {
         templateUrl: 'public/partials/login/login.view.html',
-        controller: 'LoginCtrl'
+       // controller: 'LoginCtrl'
     }).when('/register', {
         templateUrl: 'public/partials/register/register.view.html',
-        controller: 'RegisterCtrl'
+      //  controller: 'RegisterCtrl'
     }).when('/about', {
         templateUrl: 'public/about.html'
     }).when('/blog', {
