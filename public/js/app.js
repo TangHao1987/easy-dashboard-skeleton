@@ -5,10 +5,27 @@
     angular.module('app', [
         'ngRoute',
         'ngCookies',
-        'app.routes',
         'app.directive',
-        'app.config'
-    ]).controller('defaultCtrl', ['$scope', '$location', function($scope, $location){
+        'app.config',
+        'controllers',
+        'ngRoute'
+    ]).config(['$routeProvider', function ($routeProvider) {
+        $routeProvider.when('/home', {
+            templateUrl: 'public/partials/home/home.view.html',
+            controller: 'HomeCtrl'
+        }).when('/login', {
+            templateUrl: 'public/partials/login/login.view.html',
+            controller: 'LoginCtrl'
+        }).when('/about', {
+            templateUrl: 'public/about.html'
+        }).when('/blog', {
+            templateUrl: 'public/blog.html'
+        }).when('/contact', {
+            templateUrl: 'public/contact.html'
+        }).otherwise(
+            {redirectTo: '/home'}
+        );
+    }]).controller('defaultCtrl', ['$scope', '$location', function($scope, $location){
         $scope.location = $location;
     }]).run(run);
 
