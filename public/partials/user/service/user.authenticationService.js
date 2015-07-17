@@ -2,11 +2,11 @@
     'use strict';
 
     angular.
-        module('app', ['app.config', 'ngCookies', 'app.Service']).
+        module('app.user').
         factory('AuthenticationService', AuthenticationService);
 
-    AuthenticationService.$inject = ['$http', '$cookies', '$rootScope', 'LocalConfig', 'UserService', '$timeout'];
-    function AuthenticationService($http, $cookies, $rootScope, LocalConfig, UserService, $timeout){
+    AuthenticationService.$inject = ['$http', '$cookies', '$rootScope', 'UserService', '$timeout'];
+    function AuthenticationService($http, $cookies, $rootScope, UserService, $timeout){
         var service = {};
         service.Login = Login;
         service.SetCredentials = SetCredentials;

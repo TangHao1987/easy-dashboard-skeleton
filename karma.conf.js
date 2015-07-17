@@ -9,7 +9,7 @@ module.exports = function (config) {
             'public/lib/bower_components/angular-cookies/angular-cookies.js',
             'public/lib/bower_components/underscore/underscore.js',
             'public/js/*.js',
-            'public/js/service/**/*.js',
+            'public/partials/user/service/**/*.js',
             'test/unit/**/*.js'
         ],
         // coverage reporter generates the coverage

@@ -7,21 +7,19 @@
         'ngCookies',
         'app.directive',
         'app.config',
-        'controllers',
+        'app.user',
+        'app.home',
         'ngRoute'
     ]).config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when('/home', {
             templateUrl: 'public/partials/home/home.view.html',
             controller: 'HomeCtrl'
         }).when('/login', {
-            templateUrl: 'public/partials/login/login.view.html',
+            templateUrl: 'public/partials/user/view/login.view.html',
             controller: 'LoginCtrl'
-        }).when('/about', {
-            templateUrl: 'public/about.html'
-        }).when('/blog', {
-            templateUrl: 'public/blog.html'
-        }).when('/contact', {
-            templateUrl: 'public/contact.html'
+        }).when('/registration', {
+            templateUrl: 'public/partials/user/view/registration.view.html',
+            controller: 'RegistrationCtrl'
         }).otherwise(
             {redirectTo: '/home'}
         );
@@ -38,7 +36,7 @@
         }
 
         $rootScope.$on('$locationChangeStart', function (event, next, current) {
-            var restrictedPage = $.inArray($location.path(), LocalConfig.controlPages) !== -1;
+            var restrictedPage = $.inArray($location.path(), LocalConfig.noControlPages) === -1;
             var loggedIn = $rootScope.globals.currentUser;
             if (restrictedPage && !loggedIn) {
                 $location.path('/login');
