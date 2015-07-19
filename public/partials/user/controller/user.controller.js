@@ -1,8 +1,8 @@
 (function () {
     'use strict';
-    var user = angular.module('app.user', ["ngMessages"]);
+    var user = angular.module('app.user');
 
-    user.controller("LoginCtrl", ["$scope", "$location", function ($scope, AuthenticationService, $location) {
+    user.controller("LoginCtrl", ["$scope","$location", "AuthenticationService", function ($scope, $location, AuthenticationService) {
         $scope.login = function () {
             AuthenticationService.Login($scope.email, $scope.password, function (response) {
                 if (response.success) {

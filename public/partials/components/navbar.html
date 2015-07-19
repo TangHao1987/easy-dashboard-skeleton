@@ -233,12 +233,12 @@
                     </div>
                 </li>
 
-                <li ng-repeat="menuItem in menuItems" ng-class="{'active':menuItem.showSub}" ng-init="menuItem.showSub = false">
-                    <a ng-click="clickMenuItem(menuItem)"><i class="fa fa-fw" ng-class="menuItem.class"></i>{{menuItem.name}} <span ng-show="menuItem.subItems && menuItem.subItems.length" class="fa arrow"></span> </a>
-                    <ul class="nav nav-second-level" ng-if="menuItem.subItems && menuItem.subItems.length > 0" ng-show="menuItem.showSub">
-                        <li ng-repeat="subItem in menuItem.subItems" ng-class="{'active':subItem.showSub}" ng-init="subItem.showSub = false">
-                            <a ng-click="clickSubItem(subItem)">{{subItem.name}} <span ng-show="subItem.subItems && subItem.subItems.length" class="fa arrow"></span></a>
-                            <ul class="nav nav-third-level" ng-if="subItem.subItems && subItem.subItems.length > 0"  ng-show="subItem.showSub">
+                <li ng-repeat="menuItem in menuItems">
+                    <a ng-href="{{menuItem.url?menuItem.url:'#'}}"><i class="fa fa-fw" ng-class="menuItem.class"></i>{{menuItem.name}}</a>
+                    <ul class="nav nav-second-level" ng-if="menuItem.subItems && menuItem.subItems.length > 0">
+                        <li ng-repeat="subItem in menuItem.subItems">
+                            <a ng-href="{{subItem.url}}">{{subItem.name}}</a>
+                            <ul class="nav nav-third-level" ng-if="subItem.subItems && subItem.subItems.length > 0">
                                 <li ng-repeat="subSubItem in subItem.subItems">
                                     <a ng-href="{{subSubItem.url}}">{{subItem.name}}</a>
                                 </li>
@@ -252,5 +252,3 @@
     </div>
     <!-- /.navbar-static-side -->
 </nav>
-
-Home View!

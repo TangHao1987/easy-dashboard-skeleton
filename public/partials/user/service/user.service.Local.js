@@ -96,7 +96,7 @@
         }
 
         function getUsers(){
-            return $resource('/data/user.json', {id: '@id'}, {
+            return $resource('public/data/user.json', {id: '@id'}, {
                 query: {method:'GET', isArray:true
                 }});
         }
