@@ -30,7 +30,12 @@
     run.$inject = ['$rootScope', '$location', '$cookies', '$http', 'LocalConfig'];
     function run($rootScope, $location, $cookies, $http, LocalConfig) {
         // keep user logged in after page refresh
-        $rootScope.globals = JSON.parse($cookies.get('globals')) || {};
+        var globals = $cookies.get('globals');
+        if(globals){
+            $rootScope.globals = JSON.parse(globals)
+        }else{
+            $rootScope.globals = {};
+        }
         if ($rootScope.globals.currentUser) {
             $http.defaults.headers.common['Authorization'] = 'Basic ' + $rootScope.globals.currentUser.authdata; // jshint ignore:line
         }

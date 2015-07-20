@@ -1,6 +1,6 @@
 (function(){
     'use strict';
-    var controllers = angular.module('app.home', []);
+    var controllers = angular.module('app.home', ['ngAnimate']);
     controllers.controller('HomeCtrl', ['$scope', '$http', '$location',function($scope, $http, $location){
         $http.get('public/data/menu.json').then(function(resp){
             $scope.menuItems = resp.data;
@@ -27,7 +27,7 @@
                 $location.path(subItem.url)
             }else{
                 subItem.showSub = !subItem.showSub;
-                if($scope.lastSubItem && $scope.lastSubItem !== menuItem){
+                if($scope.lastSubItem && $scope.lastSubItem !== subItem){
                     $scope.lastSubItem.showSub = false;
                 }
                 $scope.lastSubItem = subItem;
