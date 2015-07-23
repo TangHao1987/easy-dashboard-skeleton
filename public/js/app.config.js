@@ -3,7 +3,8 @@
  */
 (function () {
     'use strict';
-    var imageBaseDir = 'public/img/';
+    var imageBaseDir = 'img/';
+    var dataBaseDir = 'data/';
     angular.module('app.config', [])
         .constant('LocalConfig', {
             'debugMode': true,
@@ -18,6 +19,10 @@
                 slide1: imageBaseDir + 'slide-1.jpg',
                 slide2: imageBaseDir + 'slide-2.jpg',
                 slide3: imageBaseDir + 'slide-3.jpg'
+            },
+            'json':{
+                menu: dataBaseDir + 'menu.json',
+                user: dataBaseDir + 'user.json'
             }
         });
 })();

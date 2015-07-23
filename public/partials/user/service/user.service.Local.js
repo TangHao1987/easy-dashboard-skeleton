@@ -8,8 +8,8 @@
         .module('app.user')
         .factory('UserService', UserService);
 
-    UserService.$inject = ['$q', '$resource'];
-    function UserService($q, $resource) {
+    UserService.$inject = ['$q', '$resource', 'LocalConfig'];
+    function UserService($q, $resource, LocalConfig) {
 
         var service = {};
 
@@ -96,7 +96,7 @@
         }
 
         function getUsers(){
-            return $resource('public/data/user.json', {id: '@id'}, {
+            return $resource(LocalConfig.json.user, {id: '@id'}, {
                 query: {method:'GET', isArray:true
                 }});
         }

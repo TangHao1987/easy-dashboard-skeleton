@@ -12,13 +12,13 @@
         'ngRoute'
     ]).config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when('/home', {
-            templateUrl: 'public/partials/home/home.view.html',
+            templateUrl: '/partials/home/home.view.html',
             controller: 'HomeCtrl'
         }).when('/login', {
-            templateUrl: 'public/partials/user/view/login.view.html',
+            templateUrl: '/partials/user/view/login.view.html',
             controller: 'LoginCtrl'
         }).when('/registration', {
-            templateUrl: 'public/partials/user/view/registration.view.html',
+            templateUrl: '/partials/user/view/registration.view.html',
             controller: 'RegistrationCtrl'
         }).otherwise(
             {redirectTo: '/home'}
