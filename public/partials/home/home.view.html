@@ -206,7 +206,7 @@
                 <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
             </a>
             <ul class="dropdown-menu dropdown-user">
-                <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                <li><a href="#"><i class="fa fa-user fa-fw"></i>User Profile</a>
                 </li>
                 <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
                 </li>
@@ -224,23 +224,22 @@
             <ul class="nav" id="side-menu">
                 <li class="sidebar-search">
                     <div class="input-group custom-search-form">
-                        <input type="text" class="form-control" placeholder="Search...">
-                                <span class="input-group-btn">
-                                <button class="btn btn-default" type="button">
-                                    <i class="fa fa-search"></i>
-                                </button>
-                            </span>
+                            <div class="form-group has-feedback">
+                                <input type="text" class="form-control" placeholder="Search..." ng-model="searchText"/>
+                                <i class="glyphicon glyphicon-search form-control-feedback"></i>
+                            </div>
+
                     </div>
                 </li>
 
-                <li ng-repeat="menuItem in menuItems" ng-init="menuItem.showSub = false">
+                <li ng-repeat="menuItem in menuItems | menuFilter:searchText" ng-init="menuItem.showSub = false">
                     <a ng-click="clickMenuItem(menuItem)"><i class="fa fa-fw" ng-class="menuItem.class"></i>{{menuItem.name}} <span ng-show="menuItem.subItems && menuItem.subItems.length" class="fa arrow"></span> </a>
                     <ul class="nav nav-second-level nav-animate-show" ng-if="menuItem.subItems && menuItem.subItems.length > 0">
                         <li ng-repeat="subItem in menuItem.subItems" data-slide-toggle="menuItem.showSub" ng-init="subItem.showSub = false" data-start-shown="false">
                             <a ng-click="clickSubItem(subItem)">{{subItem.name}} <span ng-show="subItem.subItems && subItem.subItems.length" class="fa arrow"></span></a>
                             <ul class="nav nav-third-level" ng-if="subItem.subItems && subItem.subItems.length > 0">
                                 <li ng-repeat="subSubItem in subItem.subItems" data-slide-toggle="subItem.showSub" data-start-shown="false">
-                                    <a ng-href="{{subSubItem.url}}">{{subItem.name}}</a>
+                                    <a ng-href="{{subSubItem.url}}">{{subSubItem.name}}</a>
                                 </li>
                             </ul>
                         </li>
