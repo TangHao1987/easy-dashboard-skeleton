@@ -1,6 +1,6 @@
 (function(){
     'use strict';
-    var controllers = angular.module('app.home', ['ngAnimate', 'app.config']);
+    var controllers = angular.module('app.home', ['app.config']);
     controllers.controller('HomeCtrl', ['$scope', '$http', '$location', 'LocalConfig',function($scope, $http, $location, LocalConfig){
         $http.get(LocalConfig.json.menu).then(function(resp){
             $scope.menuItems = resp.data;
