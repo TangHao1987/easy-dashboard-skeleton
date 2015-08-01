@@ -2,53 +2,68 @@ describe('home module test', function () {
     'use strict';
     beforeEach(module('app.home'));
 
-    var expectedMenu = [{
-        "name": "SingleItem",
-        "class": "fa-dashboard",
-        "url": "index.html"
-    },
-    {
-        "name": "TwoLevelItem",
-        "class": "fa-bar-chart-o",
-        "subItems": [
-            {
-                "name": "Flot Charts",
-                "url": "public/pages/flot.html"
-            },
-            {
-                "name": "Morris.js Charts",
-                "url": "public/pages/morris.html"
-            }
-        ]
-    }, {
-        "name": "Multi-Level Dropdown",
-        "class": "fa-sitemap",
-        "subItems": [
-            {
-                "name": "Second Level Item",
-                "url": "public/pages/secondLevel.html"
-            },
-            {
-                "name": "Second Level Item",
-                "subItems": [
-                    {
-                        "name": "third Level Item",
-                        "url": "public/pages/thirdLevel.html"
-                    },
-                    {
-                        "name": "third Level Item",
-                        "url": "public/pages/thirdLevel.html"
-                    }
-                ]
-            }]
-        }];
+
     describe('Home Controller', function () {
-        var scope, $httpBackend, createController, location;
+        var scope, $httpBackend, createController, location, expectedMenu;
 
         beforeEach(inject(function ($rootScope, $controller, _$httpBackend_, LocalConfig, $location) {
             $httpBackend = _$httpBackend_;
             location = $location;
             scope = $rootScope.$new();
+            expectedMenu = [{
+                "name": "SingleItem",
+                "class": "fa-dashboard",
+                "url": "index.html"
+            },
+                {
+                    "name": "TwoLevelItem",
+                    "class": "fa-bar-chart-o",
+                    "subItems": [
+                        {
+                            "name": "Flot Charts",
+                            "url": "public/pages/flot.html"
+                        },
+                        {
+                            "name": "Morris.js Charts",
+                            "url": "public/pages/morris.html"
+                        }
+                    ]
+                },
+                {
+                    "name": "Multi-Level Dropdown",
+                    "class": "fa-sitemap",
+                    "subItems": [
+                        {
+                            "name": "Second Level Item",
+                            "url": "public/pages/secondLevel.html"
+                        },
+                        {
+                            "name": "Second Level Item",
+                            "subItems": [
+                                {
+                                    "name": "third Level Item",
+                                    "url": "public/pages/thirdLevel.html"
+                                },
+                                {
+                                    "name": "third Level Item",
+                                    "url": "public/pages/thirdLevel.html"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "Second Level Item",
+                            "subItems": [
+                                {
+                                    "name": "third Level Item",
+                                    "url": "public/pages/thirdLevel.html"
+                                },
+                                {
+                                    "name": "third Level Item",
+                                    "url": "public/pages/thirdLevel.html"
+                                }
+                            ]
+                        }]
+                }];
             $httpBackend.expectGET('messages.html').respond('');
             $httpBackend.expectGET(LocalConfig.json.menu).respond(expectedMenu);
             createController = function () {
@@ -93,7 +108,6 @@ describe('home module test', function () {
             scope.clickMenuItem(expectedMenu[2]);
             expect(expectedMenu[2].showSub == true);
             expect(angular.equals(scope.lastItem, expectedMenu[2])).toBe(true);
-
             scope.clickMenuItem(expectedMenu[1]);
             expect(expectedMenu[2].showSub == false);
             expect(angular.equals(scope.lastItem, expectedMenu[2])).toBe(false);
@@ -110,6 +124,32 @@ describe('home module test', function () {
             expect(location.path()).toBe('/public/pages/morris.html');
         });
 
+        it('third menu should collapse back all if another menu item clicked', function(){
+            createController();
+            scope.$apply();
+            $httpBackend.flush();
+            scope.clickMenuItem(expectedMenu[2]);
+            scope.clickSubItem(expectedMenu[2].subItems[1]);
+            expect(expectedMenu[2].showSub).toBe(true);
+            expect(expectedMenu[2].subItems[1].showSub).toBe(true);
+            scope.clickMenuItem(expectedMenu[1]);
+            expect(expectedMenu[2].showSub == false);
+            expect(expectedMenu[2].subItems[1].showSub).toBe(false);
+        });
+
+        it('third menu should collapse back all if another sub menu item clicked', function(){
+            createController();
+            scope.$apply();
+            $httpBackend.flush();
+            scope.clickMenuItem(expectedMenu[2]);
+            scope.clickSubItem(expectedMenu[2].subItems[1]);
+            expect(expectedMenu[2].subItems[1].showSub).toBe(true);
+            scope.clickSubItem(expectedMenu[2].subItems[2]);
+            expect(expectedMenu[2].showSub == true);
+            expect(expectedMenu[2].subItems[1].showSub).toBe(false);
+            expect(expectedMenu[2].subItems[2].showSub).toBe(true);
+        });
+
         it('menu should go to third level item if subItem has subItems', function(){
             createController();
             scope.$apply();
@@ -120,6 +160,15 @@ describe('home module test', function () {
             expect(expectedMenu[2].subItems[1].showSub).toBe(true);
             expect(angular.equals(scope.lastItem, expectedMenu[2])).toBe(true);
             expect(angular.equals(scope.lastSubItem, expectedMenu[2].subItems[1])).toBe(true);
+
+        });
+
+        it('should redirect to login page when log out', function(){
+            createController();
+            scope.$apply();
+            $httpBackend.flush();
+            scope.logout();
+            expect(location.path()).toBe('/login');
 
         });
 
@@ -138,6 +187,12 @@ describe('home module test', function () {
                 expect(expectedMenu[2].showSub).toBe(false);
             });
 
+            it('should expend subItem when searched third level items', function(){
+                filter(expectedMenu, 'third Level Item');
+                expect(expectedMenu[2].showSub).toBe(true);
+                expect(expectedMenu[2].subItems[1].showSub).toBe(true);
+
+            });
         });
 
     });

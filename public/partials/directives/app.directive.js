@@ -58,7 +58,7 @@
                 });
 
             },
-            templateUrl: 'public/partials/directives/directive.checkStrength.html'
+            templateUrl: 'partials/directives/directive.checkStrength.html'
         };
 
     });
