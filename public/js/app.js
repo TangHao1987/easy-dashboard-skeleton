@@ -4,7 +4,6 @@
 // Declare app level module which depends on views, and components
     angular.module('app', [
         'ngRoute',
-        'ngCookies',
         'app.directive',
         'app.config',
         'app.user',
@@ -42,6 +41,7 @@
 
         $rootScope.$on('$locationChangeStart', function (event, next, current) {
             var restrictedPage = $.inArray($location.path(), LocalConfig.noControlPages) === -1;
+            console.log('restrictedPage: ' + restrictedPage);
             var loggedIn = $rootScope.globals.currentUser;
             if (restrictedPage && !loggedIn) {
                 $location.path('/login');

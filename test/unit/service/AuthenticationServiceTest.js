@@ -1,6 +1,6 @@
 describe('authentication service test', function() {
     'use strict';
-    beforeEach(module('app'));
+    beforeEach(module('app.user'));
     describe('authentication service', function(){
         var $httpBackend,service, scope, timeout;
         var expectedUsers = [
@@ -17,7 +17,9 @@ describe('authentication service test', function() {
         ];
         beforeEach(inject(function(_$httpBackend_,AuthenticationService, $rootScope, $timeout){  //parameter name = service name
             $httpBackend = _$httpBackend_;
-            $httpBackend.expectGET('/data/user.json').
+            $httpBackend.expectGET('messages.html').
+                respond('');
+            $httpBackend.expectGET('data/user.json').
                 respond(expectedUsers);
 
             service = AuthenticationService;

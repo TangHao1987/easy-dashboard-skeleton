@@ -1,7 +1,7 @@
 (function(){
     'use strict';
-    var controllers = angular.module('app.home', ['app.config']);
-    controllers.controller('HomeCtrl', ['$scope', '$http', '$location', 'LocalConfig',function($scope, $http, $location, LocalConfig){
+    var controllers = angular.module('app.home', ['app.config', 'app.user']);
+    controllers.controller('HomeCtrl', ['$scope', '$http', '$location', 'LocalConfig', 'AuthenticationService',function($scope, $http, $location, LocalConfig, AuthenticationService){
         $http.get(LocalConfig.json.menu).then(function(resp){
             $scope.menuItems = resp.data;
         });
@@ -33,6 +33,11 @@
                 $scope.lastSubItem = subItem;
             }
         };
+
+        $scope.logout = function(){
+            AuthenticationService.ClearCredentials();
+            $location.path('/login');
+        }
     }]);
 
     controllers.filter('menuFilter', function($filter){

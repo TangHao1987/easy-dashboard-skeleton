@@ -1,7 +1,7 @@
 describe('user service test', function(){
     'use strict';
 
-    beforeEach(module('app.Service'));
+    beforeEach(module('app.user'));
     describe('user service', function(){
         var $httpBackend,service, scope;
 
@@ -19,7 +19,9 @@ describe('user service test', function(){
         ];
         beforeEach(inject(function(_$httpBackend_,UserService, $rootScope){  //parameter name = service name
             $httpBackend = _$httpBackend_;
-            $httpBackend.expectGET('/data/user.json').
+            $httpBackend.expectGET('messages.html').
+                respond('');
+            $httpBackend.expectGET('data/user.json').
                 respond(expectedUsers);
 
             service = UserService;
@@ -96,7 +98,7 @@ describe('user service test', function(){
                 "email": "test1@123.com",
                 "password" : "root1"
             };
-            $httpBackend.expectPOST('/data/user.json?id=1', {
+            $httpBackend.expectPOST('data/user.json?id=1', {
                 "id" : 1,
                 "email": "test1@123.com",
                 "password" : "root12"
@@ -120,7 +122,7 @@ describe('user service test', function(){
                 "email": "test3@123.com",
                 "password" : "root3"
             };
-            $httpBackend.expectPOST('/data/user.json?id=3').respond(200);
+            $httpBackend.expectPOST('data/user.json?id=3').respond(200);
             var updatedUser = null;
             service.CreateOrUpdate(user).then(function(user){
                 updatedUser = user;
@@ -135,7 +137,7 @@ describe('user service test', function(){
         });
 
         it('should delete the user whose user id = 1', function(){
-            $httpBackend.expectDELETE('/data/user.json?id=1').respond(200);
+            $httpBackend.expectDELETE('data/user.json?id=1').respond(200);
             var resp = null;
             service.Delete(1).then(function(response){
                 resp = response;

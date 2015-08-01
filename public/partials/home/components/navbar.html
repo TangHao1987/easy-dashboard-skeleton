@@ -6,16 +6,17 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="index.html">SB Admin v2.0</a>
+        <a class="navbar-brand" href="../../../index.html">SB Admin v2.0</a>
     </div>
 
 
     <ul class="nav navbar-top-links navbar-right">
-        <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+        <li class="dropdown" ng-model="showDrop">
+
+            <a class="dropdown-toggle" data-toggle="dropdown">
                 <i class="fa fa-envelope fa-fw"></i>  <i class="fa fa-caret-down"></i>
             </a>
-            <ul class="dropdown-menu dropdown-messages">
+            <ul class="dropdown-menu dropdown-messages" role="menu">
                 <li>
                     <a href="#">
                         <div>
@@ -63,7 +64,7 @@
         </li>
         <!-- /.dropdown -->
         <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+            <a class="dropdown-toggle" data-toggle="dropdown">
                 <i class="fa fa-tasks fa-fw"></i>  <i class="fa fa-caret-down"></i>
             </a>
             <ul class="dropdown-menu dropdown-tasks">
@@ -142,7 +143,7 @@
         </li>
         <!-- /.dropdown -->
         <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+            <a class="dropdown-toggle" data-toggle="dropdown">
                 <i class="fa fa-bell fa-fw"></i>  <i class="fa fa-caret-down"></i>
             </a>
             <ul class="dropdown-menu dropdown-alerts">
@@ -202,16 +203,16 @@
         </li>
         <!-- /.dropdown -->
         <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+            <a class="dropdown-toggle" data-toggle="dropdown">
                 <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
             </a>
             <ul class="dropdown-menu dropdown-user">
-                <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                <li><a href="#"><i class="fa fa-user fa-fw"></i>User Profile</a>
                 </li>
                 <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
                 </li>
                 <li class="divider"></li>
-                <li><a href="/public/pages/login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                <li><a ng-click="logout()"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                 </li>
             </ul>
             <!-- /.dropdown-user -->
@@ -224,23 +225,22 @@
             <ul class="nav" id="side-menu">
                 <li class="sidebar-search">
                     <div class="input-group custom-search-form">
-                        <input type="text" class="form-control" placeholder="Search...">
-                                <span class="input-group-btn">
-                                <button class="btn btn-default" type="button">
-                                    <i class="fa fa-search"></i>
-                                </button>
-                            </span>
+                        <div class="form-group has-feedback">
+                            <input type="text" class="form-control" placeholder="Search..." ng-model="searchText"/>
+                            <i class="glyphicon glyphicon-search form-control-feedback"></i>
+                        </div>
+
                     </div>
                 </li>
 
-                <li ng-repeat="menuItem in menuItems">
-                    <a ng-href="{{menuItem.url?menuItem.url:'#'}}"><i class="fa fa-fw" ng-class="menuItem.class"></i>{{menuItem.name}}</a>
-                    <ul class="nav nav-second-level" ng-if="menuItem.subItems && menuItem.subItems.length > 0">
-                        <li ng-repeat="subItem in menuItem.subItems">
-                            <a ng-href="{{subItem.url}}">{{subItem.name}}</a>
+                <li ng-repeat="menuItem in menuItems | menuFilter:searchText" ng-init="menuItem.showSub = false">
+                    <a ng-click="clickMenuItem(menuItem)"><i class="fa fa-fw" ng-class="menuItem.class"></i>{{menuItem.name}} <span ng-show="menuItem.subItems && menuItem.subItems.length" class="fa arrow" ng-class="{'active':menuItem.showSub}"></span> </a>
+                    <ul class="nav nav-second-level nav-animate-show" ng-if="menuItem.subItems && menuItem.subItems.length > 0">
+                        <li ng-repeat="subItem in menuItem.subItems" data-slide-toggle="menuItem.showSub" ng-init="subItem.showSub = false" data-start-shown="false">
+                            <a ng-click="clickSubItem(subItem)">{{subItem.name}} <span ng-show="subItem.subItems && subItem.subItems.length" class="fa arrow" ng-class="{'active':subItem.showSub}"></span></a>
                             <ul class="nav nav-third-level" ng-if="subItem.subItems && subItem.subItems.length > 0">
-                                <li ng-repeat="subSubItem in subItem.subItems">
-                                    <a ng-href="{{subSubItem.url}}">{{subItem.name}}</a>
+                                <li ng-repeat="subSubItem in subItem.subItems" data-slide-toggle="subItem.showSub" data-start-shown="false">
+                                    <a ng-href="{{subSubItem.url}}">{{subSubItem.name}}</a>
                                 </li>
                             </ul>
                         </li>

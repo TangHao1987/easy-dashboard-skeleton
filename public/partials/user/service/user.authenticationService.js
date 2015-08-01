@@ -42,7 +42,7 @@
 
         function SetCredentials(username, password) {
             var authdata =  username + ':' + password;
-
+            $rootScope.globals = {};
             $rootScope.globals.currentUser = {
                     username: username,
                     authdata: authdata
