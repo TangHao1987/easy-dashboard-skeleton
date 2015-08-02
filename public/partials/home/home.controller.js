@@ -1,7 +1,11 @@
 (function(){
     'use strict';
-    var controllers = angular.module('app.home', ['app.config', 'app.user']);
-    controllers.controller('HomeCtrl', ['$scope', '$http', '$location', 'LocalConfig', 'AuthenticationService',function($scope, $http, $location, LocalConfig, AuthenticationService){
+    var homeModel = angular.module('app.home', ['app.config', 'app.user']);
+    homeModel.controller('HomeCtrl', function(){
+
+    });
+
+    homeModel.controller('NavbarCtrl', ['$scope', '$http', '$location', 'LocalConfig', 'AuthenticationService',function($scope, $http, $location, LocalConfig, AuthenticationService){
         $http.get(LocalConfig.json.menu).then(function(resp){
             $scope.menuItems = resp.data;
         });
@@ -40,7 +44,7 @@
         }
     }]);
 
-    controllers.filter('menuFilter', function($filter){
+    homeModel.filter('menuFilter', function($filter){
         var standardFilter = $filter('filter');
         return function(menuItems , searchText){
             var out = standardFilter(menuItems, searchText);

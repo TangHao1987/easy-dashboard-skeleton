@@ -24,7 +24,7 @@ module.exports = function (config) {
             // do not include tests or libraries
             // (these files will be instrumented by Istanbul)
             'public/partials/user/service/*.js': ['coverage'],
-            'public/partials/home/*.js': ['coverage']
+            'public/partials/home/**/*.js': ['coverage']
         },
 
         autoWatch: true,

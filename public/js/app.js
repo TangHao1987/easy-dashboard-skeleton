@@ -41,7 +41,7 @@
 
         $rootScope.$on('$locationChangeStart', function (event, next, current) {
             var restrictedPage = $.inArray($location.path(), LocalConfig.noControlPages) === -1;
-            console.log('restrictedPage: ' + restrictedPage);
+            //console.log('restrictedPage: ' + restrictedPage);
             var loggedIn = $rootScope.globals.currentUser;
             if (restrictedPage && !loggedIn) {
                 $location.path('/login');

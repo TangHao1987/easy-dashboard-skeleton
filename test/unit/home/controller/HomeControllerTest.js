@@ -3,7 +3,7 @@ describe('home module test', function () {
     beforeEach(module('app.home'));
 
 
-    describe('Home Controller', function () {
+    describe('Navbar Controller', function () {
         var scope, $httpBackend, createController, location, expectedMenu;
 
         beforeEach(inject(function ($rootScope, $controller, _$httpBackend_, LocalConfig, $location) {
@@ -66,45 +66,30 @@ describe('home module test', function () {
                 }];
             $httpBackend.expectGET('messages.html').respond('');
             $httpBackend.expectGET(LocalConfig.json.menu).respond(expectedMenu);
-            createController = function () {
-                return $controller('HomeCtrl', {
-                    '$scope': scope
-                });
-            };
-        }));
-
-        it('should get menu after controller created', function(){
-            createController();
-
+            $controller('NavbarCtrl', {
+                '$scope': scope
+            });
             scope.$apply();
             $httpBackend.flush();
 
+        }));
+
+        it('should get menu after controller created', function(){
             expect(angular.equals(scope.menuItems, expectedMenu)).toBe(true);
         });
 
         it('menu should direct to the menu url if menu has url', function(){
-            createController();
-
-            scope.$apply();
-            $httpBackend.flush();
-
             scope.clickMenuItem(expectedMenu[0]);
             expect(location.path()).toBe('/index.html');
         });
 
         it('menu should expended if menu has subItem', function(){
-            createController();
-            scope.$apply();
-            $httpBackend.flush();
             scope.clickMenuItem(expectedMenu[1]);
             expect(expectedMenu[1].showSub == true);
             expect(angular.equals(scope.lastItem, expectedMenu[1])).toBe(true);
         });
 
         it('menu should collapse back if another menu item clicked', function(){
-            createController();
-            scope.$apply();
-            $httpBackend.flush();
             scope.clickMenuItem(expectedMenu[2]);
             expect(expectedMenu[2].showSub == true);
             expect(angular.equals(scope.lastItem, expectedMenu[2])).toBe(true);
@@ -114,9 +99,6 @@ describe('home module test', function () {
         });
 
         it('menu should go to second level item url if subItem has url', function(){
-            createController();
-            scope.$apply();
-            $httpBackend.flush();
             scope.clickMenuItem(expectedMenu[1]);
             scope.clickSubItem(expectedMenu[1].subItems[1]);
             expect(expectedMenu[1].showSub == true);
@@ -125,9 +107,6 @@ describe('home module test', function () {
         });
 
         it('third menu should collapse back all if another menu item clicked', function(){
-            createController();
-            scope.$apply();
-            $httpBackend.flush();
             scope.clickMenuItem(expectedMenu[2]);
             scope.clickSubItem(expectedMenu[2].subItems[1]);
             expect(expectedMenu[2].showSub).toBe(true);
@@ -138,9 +117,6 @@ describe('home module test', function () {
         });
 
         it('third menu should collapse back all if another sub menu item clicked', function(){
-            createController();
-            scope.$apply();
-            $httpBackend.flush();
             scope.clickMenuItem(expectedMenu[2]);
             scope.clickSubItem(expectedMenu[2].subItems[1]);
             expect(expectedMenu[2].subItems[1].showSub).toBe(true);
@@ -151,9 +127,6 @@ describe('home module test', function () {
         });
 
         it('menu should go to third level item if subItem has subItems', function(){
-            createController();
-            scope.$apply();
-            $httpBackend.flush();
             scope.clickMenuItem(expectedMenu[2]);
             scope.clickSubItem(expectedMenu[2].subItems[1]);
             expect(expectedMenu[2].showSub).toBe(true);
@@ -164,12 +137,8 @@ describe('home module test', function () {
         });
 
         it('should redirect to login page when log out', function(){
-            createController();
-            scope.$apply();
-            $httpBackend.flush();
             scope.logout();
             expect(location.path()).toBe('/login');
-
         });
 
         describe('menu filter', function(){
@@ -191,7 +160,6 @@ describe('home module test', function () {
                 filter(expectedMenu, 'third Level Item');
                 expect(expectedMenu[2].showSub).toBe(true);
                 expect(expectedMenu[2].subItems[1].showSub).toBe(true);
-
             });
         });
 
