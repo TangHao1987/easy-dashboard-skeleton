@@ -19,6 +19,9 @@
         }).when('/registration', {
             templateUrl: '/partials/user/view/registration.view.html',
             controller: 'RegistrationCtrl'
+        }).when('/userProfile', {
+            templateUrl: '/partials/user/view/registration.view.html',
+            controller: 'RegistrationCtrl'
         }).otherwise(
             {redirectTo: '/home'}
         );

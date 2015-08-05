@@ -5,6 +5,20 @@
     "url": "index.html"
   },
   {
+    "name": "User",
+    "class": "fa-user",
+    "subItems": [
+      {
+        "name": "User Management",
+        "url": "/userManagement"
+      },
+      {
+        "name": "My Account",
+        "url": "/userProfile"
+      }
+    ]
+  },
+  {
     "name": "Charts",
     "class": "fa-bar-chart-o",
     "subItems": [
