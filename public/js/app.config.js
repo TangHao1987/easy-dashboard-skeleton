@@ -23,7 +23,8 @@
             },
             'json':{
                 menu: dataBaseDir + 'menu.json',
-                user: dataBaseDir + 'user.json'
+                user: dataBaseDir + 'user.json',
+                path: dataBaseDir + 'path.json'
             }
         });
 })();

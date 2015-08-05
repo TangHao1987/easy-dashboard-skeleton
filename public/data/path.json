@@ -1,0 +1,27 @@
+[
+  {
+    "name": "home",
+    "url": "/home",
+    "templateUrl": "/partials/home/home.view.html",
+    "controller": "HomeCtrl"
+  },
+  {
+    "name": "login",
+    "url": "/login",
+    "templateUrl": "/partials/user/view/login.view.html",
+    "controller": "LoginCtrl"
+  },
+  {
+    "name": "registration",
+    "url": "/registration",
+    "templateUrl": "/partials/user/view/registration.view.html",
+    "controller": "RegistrationCtrl"
+  },
+  {
+    "name": "userProfile",
+    "url": "/userProfile",
+    "parent": "home",
+    "templateUrl": "userProfile.view.html",
+    "controller": "RegistrationCtrl"
+  }
+]
