@@ -7,14 +7,27 @@
         'app.config',
         'app.user',
         'app.home',
-        'ui.router'
-    ]).config(['$stateProvider', '$urlRouterProvider', 'LocalConfig', function ($stateProvider, $urlRouterProvider, LocalConfig) {
+        'ui.router',
+        'pascalprecht.translate'
+    ]).config(['$stateProvider', '$urlRouterProvider', '$translateProvider', 'LocalConfig', function ($stateProvider, $urlRouterProvider, $translateProvider, LocalConfig) {
         var pathConfig = LocalConfig.path;
         $urlRouterProvider.otherwise('/login');
 
         _.each(pathConfig, function(path){
             $stateProvider.state(path);
         });
+        //
+        //$translateProvider.translations('en', {
+        //    'title.welcome': 'Welcome!'
+        //});
+        //
+        //$translateProvider.translations('zh', {
+        //    'title.welcome': '\u6b22\u8fce!'
+        //});
+
+        $translateProvider.useUrlLoader('api/lang');
+        $translateProvider.preferredLanguage('zh');
+
     }]).controller('defaultCtrl', [ function(){
     }]).run(run);
 

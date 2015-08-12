@@ -82,4 +82,20 @@
             }
         };
     });
+
+    dirModule.directive('localeSelector', function($translate) {
+        return {
+            restrict: 'C',
+            replace: true,
+            templateUrl: 'partials/directives/directive.localeSelector.html',
+            link: function(scope, elem, attrs) {
+                // Get active locale even if not loaded yet:
+                scope.locale = $translate.proposedLanguage();
+
+                scope.setLocale = function() {
+                    $translate.use(scope.locale);
+                };
+            }
+        };
+    });
 })();

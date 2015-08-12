@@ -20,11 +20,11 @@
 
 
     user.controller("RegistrationCtrl", ["$scope", "$state", function ($scope, $state) {
-        }]);
+    }]);
 
 
     user.controller("UserManagementCtrl", ["$scope", "UserService", "$state", function ($scope, UserService, $state) {
-        UserService.GetAll().then(function(users){
+        UserService.GetAll().then(function (users) {
             $scope.users = users;
         });
     }]);
@@ -35,7 +35,4 @@
                 $templateCache.put('error-messages', response.data);
             })
     })
-
-
-
 })();
