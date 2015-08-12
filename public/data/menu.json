@@ -10,11 +10,11 @@
     "subItems": [
       {
         "name": "User Management",
-        "url": "/userManagement"
+        "url": "userManagement"
       },
       {
         "name": "My Account",
-        "url": "/userProfile"
+        "url": "userProfile"
       }
     ]
   },

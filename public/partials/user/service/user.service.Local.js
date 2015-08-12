@@ -6,7 +6,7 @@
 
     angular
         .module('app.user')
-        .factory('UserService', UserService);
+    .factory('UserService', UserService);
 
     UserService.$inject = ['$q', '$resource', 'LocalConfig'];
     function UserService($q, $resource, LocalConfig) {

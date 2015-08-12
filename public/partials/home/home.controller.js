@@ -1,18 +1,18 @@
 (function(){
     'use strict';
-    var homeModel = angular.module('app.home', ['app.config', 'app.user']);
-    homeModel.controller('HomeCtrl', function(){
+    var homeModel = angular.module('app.home', ['app.config', 'app.user', 'ui.router']);
+    homeModel.controller('HomeCtrl', ['$scope', function($scope){
 
-    });
+    }]);
 
-    homeModel.controller('NavbarCtrl', ['$scope', '$http', '$location', 'LocalConfig', 'AuthenticationService',function($scope, $http, $location, LocalConfig, AuthenticationService){
+    homeModel.controller('NavbarCtrl', ['$scope', '$http', '$state', 'LocalConfig', 'AuthenticationService',function($scope, $http, $state, LocalConfig, AuthenticationService){
         $http.get(LocalConfig.json.menu).then(function(resp){
             $scope.menuItems = resp.data;
         });
-
+        $scope.currentPageName = '';
         $scope.clickMenuItem = function(menuItem){
             if(menuItem.url){
-                $location.path(menuItem.url)
+                $state.transitionTo(menuItem.url);
             }else{
                 menuItem.showSub = !menuItem.showSub;
                 if($scope.lastItem && $scope.lastItem !== menuItem){
@@ -28,7 +28,7 @@
 
         $scope.clickSubItem = function(subItem){
             if(subItem.url){
-                $location.path(subItem.url)
+                $state.transitionTo(subItem.url);
             }else{
                 subItem.showSub = !subItem.showSub;
                 if($scope.lastSubItem && $scope.lastSubItem !== subItem){
@@ -40,8 +40,8 @@
 
         $scope.logout = function(){
             AuthenticationService.ClearCredentials();
-            $location.path('/login');
-        }
+            $state.transitionTo('login');
+        };
     }]);
 
     homeModel.filter('menuFilter', function($filter){
@@ -69,7 +69,6 @@
                                 }
                             }
                         });
-
                         menuItem.showSub = !!(subItem !== undefined || findSub);
                     }
 

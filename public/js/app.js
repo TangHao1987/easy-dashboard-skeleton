@@ -8,23 +8,18 @@
         'app.user',
         'app.home',
         'ui.router'
-    ]).config(['$stateProvider', '$stateProvider', '$http', 'LocalConfig', function ($stateProvider, $urlRouterProvider, $http, LocalConfig) {
-        var pathConfig;
-        $http.get(LocalConfig.json.path).then(function(resp){
-            pathConfig = resp.data;
-        });
-
-        $urlRouterProvider.otherwise('/home');
+    ]).config(['$stateProvider', '$urlRouterProvider', 'LocalConfig', function ($stateProvider, $urlRouterProvider, LocalConfig) {
+        var pathConfig = LocalConfig.path;
+        $urlRouterProvider.otherwise('/login');
 
         _.each(pathConfig, function(path){
             $stateProvider.state(path);
         });
-
     }]).controller('defaultCtrl', [ function(){
     }]).run(run);
 
     run.$inject = ['$rootScope', '$state', '$cookies', '$http', 'LocalConfig'];
-    function run($rootScope, $$state, $cookies, $http, LocalConfig) {
+    function run($rootScope, $state, $cookies, $http, LocalConfig) {
         // keep user logged in after page refresh
         var globals = $cookies.get('globals');
         if(globals){
@@ -38,12 +33,13 @@
 
         $rootScope.$on('$locationChangeStart', function (event, next, current) {
             //TODO: change $location path to state, and change noControlPages to noControl states
-            var restrictedPage = $.inArray($location.path(), LocalConfig.noControlPages) === -1;
+            var noRestrictedState = _.any(LocalConfig.noControlStates, function(state){
+               return $state.is(state);
+            });
             //console.log('restrictedPage: ' + restrictedPage);
             var loggedIn = $rootScope.globals.currentUser;
-            if (restrictedPage && !loggedIn) {
-                //TODO: change this path to transitionTo
-                $location.path('/login');
+            if (!noRestrictedState && !loggedIn) {
+                $state.transitionTo('login');
             }
         });
 

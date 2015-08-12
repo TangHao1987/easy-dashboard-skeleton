@@ -1,7 +1,7 @@
 (function () {
     'use strict';
     var dirModule = angular.module('app.directive', []);
-    dirModule.directive('refClick', function ($location) {
+    dirModule.directive('refClick', function ($state) {
         return function (scope, element, attrs) {
             var path;
 
@@ -11,7 +11,7 @@
 
             element.bind('click', function () {
                 scope.$apply(function () {
-                    $location.path(path);
+                    $state.transitionTo(path);
                 });
             });
         };

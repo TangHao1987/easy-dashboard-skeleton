@@ -9,6 +9,7 @@ module.exports = function (config) {
             'bower_components/angular-resource/angular-resource.js',
             'bower_components/angular-cookies/angular-cookies.js',
             'bower_components/angular-messages/angular-messages.js',
+            'bower_components/angular-ui-router/release/angular-ui-router.js',
             'bower_components/underscore/underscore.js',
             'public/partials/user/user.module.js',
             'public/partials/**/*.js',
@@ -40,11 +41,9 @@ module.exports = function (config) {
             'karma-coverage',
             'karma-junit-reporter'
         ],
-
         junitReporter: {
             outputFile: 'test_out/unit.xml',
             suite: 'unit'
         }
-
     });
 };

@@ -4,18 +4,17 @@ describe('home module test', function () {
 
 
     describe('Navbar Controller', function () {
-        var scope, $httpBackend, createController, location, expectedMenu;
+        var scope, $httpBackend, state, expectedMenu;
 
-        beforeEach(inject(function ($rootScope, $controller, _$httpBackend_, LocalConfig, $location) {
+        beforeEach(inject(function ($rootScope, $controller, _$httpBackend_, LocalConfig, $state) {
             $httpBackend = _$httpBackend_;
-            location = $location;
+            state = $state;
             scope = $rootScope.$new();
             expectedMenu = [{
                 "name": "SingleItem",
                 "class": "fa-dashboard",
-                "url": "index.html"
-            },
-                {
+                "url": "home"
+            }, {
                     "name": "TwoLevelItem",
                     "class": "fa-bar-chart-o",
                     "subItems": [
@@ -47,7 +46,7 @@ describe('home module test', function () {
                                 {
                                     "name": "third Level Item",
                                     "url": "public/pages/thirdLevel.html"
-                                }
+                                 }
                             ]
                         },
                         {
@@ -80,7 +79,7 @@ describe('home module test', function () {
 
         it('menu should direct to the menu url if menu has url', function(){
             scope.clickMenuItem(expectedMenu[0]);
-            expect(location.path()).toBe('/index.html');
+            expect(state.path()).toBe('/index.html');
         });
 
         it('menu should expended if menu has subItem', function(){
@@ -103,7 +102,7 @@ describe('home module test', function () {
             scope.clickSubItem(expectedMenu[1].subItems[1]);
             expect(expectedMenu[1].showSub == true);
             expect(angular.equals(scope.lastItem, expectedMenu[1])).toBe(true);
-            expect(location.path()).toBe('/public/pages/morris.html');
+            expect(state.path()).toBe('/public/pages/morris.html');
         });
 
         it('third menu should collapse back all if another menu item clicked', function(){
@@ -138,7 +137,7 @@ describe('home module test', function () {
 
         it('should redirect to login page when log out', function(){
             scope.logout();
-            expect(location.path()).toBe('/login');
+            expect(state.path()).toBe('/login');
         });
 
         describe('menu filter', function(){
