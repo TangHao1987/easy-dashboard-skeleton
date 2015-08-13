@@ -24,8 +24,11 @@
         //$translateProvider.translations('zh', {
         //    'title.welcome': '\u6b22\u8fce!'
         //});
-
-        $translateProvider.useUrlLoader('api/lang');
+        $translateProvider.useStaticFilesLoader({
+            prefix: 'i18n/locale-',
+            suffix: '.json'
+        });
+    //    $translateProvider.useUrlLoader('api/lang');
         $translateProvider.preferredLanguage('zh');
 
     }]).controller('defaultCtrl', [ function(){
