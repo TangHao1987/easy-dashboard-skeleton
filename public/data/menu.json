@@ -1,19 +1,19 @@
 [
   {
-    "name": "Dashboard",
+    "name": "home.nav.dashboard",
     "class": "fa-dashboard",
     "url": "index.html"
   },
   {
-    "name": "User",
+    "name": "home.nav.user",
     "class": "fa-user",
     "subItems": [
       {
-        "name": "User Management",
+        "name": "home.nav.userManagement",
         "url": "userManagement"
       },
       {
-        "name": "My Account",
+        "name": "home.nav.myAccount",
         "url": "userProfile"
       }
     ]
