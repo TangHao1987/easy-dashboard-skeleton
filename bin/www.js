@@ -5,7 +5,7 @@
  */
 
 var app = require('../app');
-var debug = require('debug')('currencyStreet:server');
+var debug = require('debug')('easy-dashboard-skeleton:server');
 var http = require('http');
 
 /**
