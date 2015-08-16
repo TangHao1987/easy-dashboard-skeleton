@@ -16,19 +16,12 @@
         _.each(pathConfig, function(path){
             $stateProvider.state(path);
         });
-        //
-        //$translateProvider.translations('en', {
-        //    'title.welcome': 'Welcome!'
-        //});
-        //
-        //$translateProvider.translations('zh', {
-        //    'title.welcome': '\u6b22\u8fce!'
-        //});
+
         $translateProvider.useStaticFilesLoader({
             prefix: 'i18n/locale-',
             suffix: '.json'
         });
-    //    $translateProvider.useUrlLoader('api/lang');
+
         $translateProvider.preferredLanguage('zh');
 
     }]).controller('defaultCtrl', [ function(){

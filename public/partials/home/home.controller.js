@@ -47,19 +47,44 @@
     homeModel.filter('menuFilter', function($filter){
         var standardFilter = $filter('filter');
         return function(menuItems , searchText){
-            var out = standardFilter(menuItems, searchText);
+
+            function hasTransValue(item){
+                if(searchText == undefined || searchText == '') return true;
+                var name = item.name;
+                var translatedVal = $filter('translate')(name);
+                return translatedVal?translatedVal.match(new RegExp(searchText,"i")) : false;
+            }
+
+            var filterFunc = function(val, ind, arr){
+                var hasVal = hasTransValue(val);
+                if(val.subItems){
+                    hasVal = hasVal || _.any(val.subItems, function(item){
+                        var hasSubVal = hasTransValue(item);
+                        if(item.subItems){
+                            hasSubVal = hasSubVal || _.any(item.subItems, function(subItem){
+                                return hasTransValue(subItem);
+                            });
+                        }
+                        return hasSubVal;
+                    });
+
+                }
+                return hasVal;
+            };
+
+            var out = standardFilter(menuItems, filterFunc);
             if(searchText && searchText.length > 0) {
                 _.each(out, function (menuItem) {
                     if (menuItem.subItems != undefined) {
                         var subItem = _.find(menuItem.subItems, function (subItem) {
-                            return subItem.name.match(new RegExp(searchText,"i"));
+                            return hasTransValue(subItem)
                         });
 
                         var findSub = false;
                         _.each(menuItem.subItems, function (subItem) {
                             if(subItem.subItems){
                                 var subSubItem = _.find(subItem.subItems, function (subSubItem) {
-                                    return subSubItem.name.match(new RegExp(searchText,"i"));
+                                    return hasTransValue(subSubItem)
                                 });
                                 if(subSubItem !== undefined){
                                     subItem.showSub = true;
@@ -75,6 +100,6 @@
                 });
             }
             return out;
-        }
+        7}
     })
 })();
