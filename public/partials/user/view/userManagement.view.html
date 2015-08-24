@@ -20,7 +20,7 @@
                 <tbody>
                 <tr ng-repeat="row in users">
                     <td>{{row.email}}</td>
-                    <td>{{'user.management.label.details' | translate}}</td>
+                    <td><a ng-click="openDetails(row)">{{'user.management.label.details' | translate}}</a></td>
                     <td>{{row.userGroup}}</td>
                     <td>
                         <input type="checkbox" checked="{{row.enabled}}" ng-model="row.enabled"
@@ -29,6 +29,21 @@
                 </tr>
                 </tbody>
             </table>
+
+            <script type="text/ng-template" id="useDetails.modal.html">
+                <div class="modal-header">
+                    <h3 class="modal-title">User Details</h3>
+                </div>
+                <div class="modal-body">
+                    <ul>
+                        <li>{{row.email}}</li>
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+                    <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+                </div>
+            </script>
         </div>
     </div>
     <!-- /.panel-body -->

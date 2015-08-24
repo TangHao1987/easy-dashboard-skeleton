@@ -19,6 +19,7 @@
     "angular-cookies": "~1.4.x",
     "angular-messages": "~1.4.x",
     "angular-translate": "latest",
+    "angular-bootstrap": "latest",
     "angular-translate-loader-static-files":"latest",
     "angular-ui-router": "latest",
     "bootstrap": "3.3.x",

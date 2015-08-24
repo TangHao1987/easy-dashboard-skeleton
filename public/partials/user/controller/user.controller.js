@@ -23,11 +23,43 @@
     }]);
 
 
-    user.controller("UserManagementCtrl", ["$scope", "UserService", "$state", function ($scope, UserService, $state) {
+    user.controller("UserManagementCtrl", ["$scope", "UserService", "$state", "$modal", function ($scope, UserService, $state, $modal) {
         UserService.GetAll().then(function (users) {
             $scope.users = users;
         });
+
+        $scope.openDetails = function(row){
+            var modalInstance = $modal.open({
+                animation: true,
+                templateUrl: 'useDetails.modal.html',
+                controller: 'ModalInstanceCtrl',
+                size: 'lg',
+                resolve: {
+                    row: function () {
+                        return row;
+                    }
+                }
+            });
+
+            modalInstance.result.then(function (selectedItem) {
+                $scope.selected = selectedItem;
+            }, function () {
+                $log.info('Modal dismissed at: ' + new Date());
+            });
+        }
     }]);
+
+    user.controller('ModalInstanceCtrl', function ($scope, $modalInstance, row) {
+        $scope.row = row;
+
+        $scope.ok = function () {
+            $modalInstance.close($scope.row);
+        };
+
+        $scope.cancel = function () {
+            $modalInstance.dismiss('cancel');
+        };
+    });
 
     user.run(function ($templateCache, $http) {
         $http.get('messages.html')
