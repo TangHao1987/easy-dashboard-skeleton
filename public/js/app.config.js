@@ -46,6 +46,13 @@
                     "controller": "UserManagementCtrl"
                 },
                 {
+                    "name": "userReport",
+                    "url": "/userReport",
+                    "parent": "home",
+                    "templateUrl": "/partials/user/view/userReport.view.html",
+                    "controller": "UserReportController"
+                },
+                {
                     "name": "login",
                     "url": "/login",
                     "templateUrl": "/partials/user/view/login.view.html",

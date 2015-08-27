@@ -98,4 +98,20 @@
             }
         };
     });
+
+    dirModule.directive('morrisChart', function(){
+        return{
+            restrict: 'E',
+            scope: {
+                data: '=data'
+            },
+            replace:true,
+            template:'<div></div>',
+            link: function(scope, elem, attrs) {
+                var data = scope.data;
+                elem.attr('id', data.element);
+                new Morris.Line(data);
+            }
+        }
+    })
 })();

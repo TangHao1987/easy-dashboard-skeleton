@@ -15,6 +15,10 @@
       {
         "name": "home.nav.myAccount",
         "url": "userProfile"
+      },
+      {
+        "name": "home.nav.report",
+        "url": "userReport"
       }
     ]
   },
