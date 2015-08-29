@@ -5,5 +5,7 @@ package org.easydashboard.framework
  */
 interface IConverter<DO extends IDomain, VO extends IVo> {
     DO toDomainObject(VO valueObject)
+    void updateDomainObject(DO DomainObject, VO valueObject)
     VO toValueObject(DO DomainObject)
+
 }

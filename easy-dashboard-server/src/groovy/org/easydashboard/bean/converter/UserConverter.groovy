@@ -14,11 +14,16 @@ class UserConverter implements IConverter<User, UserVo>{
     @Override
     User toDomainObject(UserVo userVo) {
         User user = new User()
-        user.userGroup = userVo.userGroup
         user.email = userVo.email
+        updateDomainObject(user, userVo)
+        return user
+    }
+
+    @Override
+    void updateDomainObject(User user, UserVo userVo) {
+        user.userGroup = userVo.userGroup
         user.password = userVo.password
         user.enable = userVo.enabled
-        return user
     }
 
     @Override

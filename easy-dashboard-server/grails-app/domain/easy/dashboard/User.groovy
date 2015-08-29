@@ -9,12 +9,14 @@ class User implements IDomain{
     UserGroup userGroup
     boolean enable
 
+    Date dateCreated
+    Date lastUpdated
+
     static mapping = {
         version false
         id generator: 'assigned', name: 'email', type: 'string'
     }
     static constraints = {
-        email(nullable: false, unique: true)
         password(nullable: false)
         userGroup(nullable: false)
     }

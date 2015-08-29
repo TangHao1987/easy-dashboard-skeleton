@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/easy-dashboard.iml" filepath="$PROJECT_DIR$/easy-dashboard.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../easy-dashboard-client/easy-dashboard-client.iml" filepath="$PROJECT_DIR$/../easy-dashboard-client/easy-dashboard-client.iml" />
       <module fileurl="file://$PROJECT_DIR$/easy-dashboard-grailsPlugins.iml" filepath="$PROJECT_DIR$/easy-dashboard-grailsPlugins.iml" />
     </modules>
   </component>

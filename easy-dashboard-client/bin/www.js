@@ -5,7 +5,7 @@
  */
 
 var app = require('../app');
-var debug = require('debug')('easy-dashboard-skeleton:server');
+var debug = require('debug')('easy-dashboard-clinet:server');
 var http = require('http');
 
 /**

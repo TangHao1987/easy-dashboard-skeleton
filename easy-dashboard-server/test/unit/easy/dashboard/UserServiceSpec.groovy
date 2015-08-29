@@ -28,18 +28,20 @@ class UserServiceSpec extends Specification {
     def cleanup() {
     }
 
-    void "test addUser"() {
+    void "test createOrUpdateUser"() {
         given:"user vo"
+        final String EMAIL = "test1@123.com"
         UserVo vo = new UserVo()
         vo.userGroup = UserGroup.ADMIN
-        vo.email = "test1@123.com"
+        vo.email = EMAIL
         vo.password = "1234"
         vo.enabled = false
 
         when: "test when"
-        service.addUser(vo)
+        service.createOrUpdateUser(vo)
+        User user = User.findByEmail(EMAIL)
         then: "test then"
-        assertTrue(true)
+        assertNotNull(user)
     }
 
 }
