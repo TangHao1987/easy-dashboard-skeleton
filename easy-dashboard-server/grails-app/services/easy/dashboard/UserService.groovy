@@ -4,6 +4,9 @@ import grails.transaction.Transactional
 import org.easydashboard.bean.converter.UserConverter
 import org.easydashboard.enumeration.ResponseEnum
 import org.easydashboard.framework.IValidator
+import org.easydashboard.vo.AbstractResponseVo
+import org.easydashboard.vo.BinaryResponseVo
+import org.easydashboard.vo.UserResponseVo
 import org.easydashboard.vo.UserVo
 
 @Transactional
@@ -35,17 +38,20 @@ class UserService implements IValidator<UserVo>{
         }
     }
 
-    ResponseEnum authenticateUser(UserVo vo){
-        ResponseEnum resp = validate(vo)
-        if(resp!= ResponseEnum.OK){
-            return resp
+    AbstractResponseVo authenticateUser(UserVo vo){
+        AbstractResponseVo responseVo
+        if(!vo.email || !vo.password){
+            responseVo = new BinaryResponseVo(ResponseEnum.VF_NULL_IMPORTANT_FIELD)
+        }else{
+            User user= User.findByEmail(vo.getEmail())
+            if(user.password != vo.password){
+                responseVo = new BinaryResponseVo(ResponseEnum.WRONG_PASSWORD)
+            }else{
+                responseVo = new UserResponseVo(ResponseEnum.OK)
+                responseVo.userVos = [userConverter.toValueObject(user)]
+            }
         }
-
-        User user= User.findByEmail(vo.getEmail())
-        if(user.password != vo.password){
-            resp = ResponseEnum.WRONG_PASSWORD
-        }
-        return resp
+        return responseVo
     }
 
     List<UserVo> getAllUsers(){

@@ -8,7 +8,7 @@
     angular.module('app.config', [])
         .constant('LocalConfig', {
             'debugMode': true,
-            'backend': 'http://localhost:3000/api',
+            'backend': 'http://localhost:8080/easy-dashboard/',
             'version': 0.1,
             "noControlStates": [
                 'registration',
@@ -25,6 +25,9 @@
                 menu: dataBaseDir + 'menu.json',
                 user: dataBaseDir + 'user.json',
                 path: dataBaseDir + 'path.json'
+            },
+            'URL':{
+                user:"user"
             },
             'path':[
                 {
@@ -65,5 +68,6 @@
                     "controller": "RegistrationCtrl"
                 }
             ]
-        });
+        }
+        );
 })();

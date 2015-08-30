@@ -5,8 +5,8 @@
         module('app.user').
         factory('AuthenticationService', AuthenticationService);
 
-    AuthenticationService.$inject = ['$http', '$cookies', '$rootScope', 'UserService', '$timeout'];
-    function AuthenticationService($http, $cookies, $rootScope, UserService, $timeout){
+    AuthenticationService.$inject = ['$http', '$cookies', '$rootScope', 'UserService', '$timeout', 'LocalConfig'];
+    function AuthenticationService($http, $cookies, $rootScope, UserService, $timeout, LocalConfig){
         var service = {};
         service.Login = Login;
         service.SetCredentials = SetCredentials;
@@ -15,20 +15,20 @@
         return service;
 
         function Login(email, password, callback) {
-            //if (!LocalConfig.debugMode) {
-            //    $http.post(LocalConfig.backend + '/api/authenticate', {username: email, password: password})
-            //        .success(function (response) {
-            //            callback(response);
-            //        });
-            //} else {
+            if (!LocalConfig.debugMode) {
+                $http.post(LocalConfig.backend + LocalConfig.URL.user + '/authenticate', {email: email, password: password})
+                    .success(function (response) {
+                        callback(response);
+                    });
+            } else {
                 dummyLogin(email, password, callback);
-            //}
+            }
         }
 
         function dummyLogin(email, password, callback){
             $timeout(function () {
                 var response;
-                UserService.GetByParam(email, 'email')
+                UserService.GetByEmail(email)
                     .then(function (user) {
                         if (user !== null && user.password === password) {
                             response = {success: true};

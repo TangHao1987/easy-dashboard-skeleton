@@ -6,7 +6,7 @@
         $scope.hasError = false;
         $scope.login = function () {
             AuthenticationService.Login($scope.email, $scope.password, function (response) {
-                if (response.success) {
+                if (response.id == 0) {
                     AuthenticationService.SetCredentials($scope.email, $scope.password);
                     $state.transitionTo('home');
                     $scope.hasError = false;
